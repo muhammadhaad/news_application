@@ -43,7 +43,7 @@ class UserAuthentication {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser u = result.user;
-      // await User(uid: u.uid).updateUserData(name);
+      await User(uid: u.uid).updateUserData(name);
       return u;
     } catch (e) {
       print(e.toString());
