@@ -14,6 +14,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final UserAuthentication _auth = UserAuthentication();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,8 +76,8 @@ class _LoginState extends State<Login> {
                   color: Colors.indigo[200],
                   //todo have to put some styling
                   onPressed: () {
-                    print(
-                        'email: ${_emailController.text} password: ${_passwordController.text}');
+                    _auth.loginWithEmailAndPassword(
+                        _emailController.text, _passwordController.text);
                   },
                 ),
                 SizedBox(height: 10.0),

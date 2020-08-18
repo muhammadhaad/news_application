@@ -23,6 +23,34 @@ class UserAuthentication {
     }
   }
 
+  Future loginWithEmailAndPassword(String email, String password) async {
+    try {
+      AuthResult result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      FirebaseUser user = result.user;
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future registerWithEmail(String email, String password, String name) async {
+    print(email);
+    print(password);
+    print(name);
+    try {
+      AuthResult result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      FirebaseUser u = result.user;
+      // await User(uid: u.uid).updateUserData(name);
+      return u;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
   Future signOut() async {
     try {
       return _auth.signOut();
