@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:news_application/model/auth/user_auth.dart';
 
 //todo dumy code
@@ -16,6 +19,17 @@ class _RegisterState extends State<Register> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final UserAuthentication _auth = UserAuthentication();
+
+  File _image;
+
+  Future<void> _pickImage(ImageSource source) async {
+    File selected = await ImagePicker.pickImage(source: source);
+
+    setState(() {
+      _image = selected;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +47,23 @@ class _RegisterState extends State<Register> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text('Add Image'),
+                      onPressed: () {
+                        _pickImage(ImageSource.gallery);
+                      },
+                    ),
+                    if (_image != null) ...[
+                      Image.file(
+                        _image,
+                        width: 100,
+                        height: 100,
+                      )
+                    ]
+                  ],
+                ),
                 TextField(
                   controller: _usernameController,
                   decoration: InputDecoration(
@@ -63,10 +94,13 @@ class _RegisterState extends State<Register> {
                     style: TextStyle(color: Colors.white, fontSize: 20.0),
                   ),
                   color: Colors.indigo[200],
-                  //todo have to put some styling
                   onPressed: () {
-                    _auth.registerWithEmail(_emailController.text,
-                        _passwordController.text, _usernameController.text);
+                    _auth.registerWithEmail(
+                      _emailController.text,
+                      _passwordController.text,
+                      _usernameController.text,
+                      _image,
+                    );
                   },
                 ),
                 SizedBox(height: 10.0),

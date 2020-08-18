@@ -31,6 +31,11 @@ dependencies:
   firebase_auth: ^0.16.1
   provider: ^4.3.1
   cloud_firestore: ^0.13.7
+  firebase_storage: ^3.1.5
+  image_picker: ^0.6.6+1
+  imagebutton: ^0.0.6
+
+
 
 
 

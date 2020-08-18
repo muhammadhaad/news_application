@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:news_application/model/auth/user.dart';
 
@@ -35,15 +37,21 @@ class UserAuthentication {
     }
   }
 
-  Future registerWithEmail(String email, String password, String name) async {
-    print(email);
+  Future registerWithEmail(
+      String email, String password, String name, File image) async {
+    /* print(email);
     print(password);
-    print(name);
+    print(name); */
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+
       FirebaseUser u = result.user;
-      await User(uid: u.uid).updateUserData(name);
+      await User(uid: u.uid).updateUserData(
+        name,
+        email,
+        image,
+      );
       return u;
     } catch (e) {
       print(e.toString());
