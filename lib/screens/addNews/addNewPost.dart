@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:news_application/model/news/news_add_new.dart';
 import 'package:news_application/model/news/news_generator.dart';
 import 'package:news_application/screens/shared.dart';
 
@@ -17,6 +18,7 @@ class _AddNewPostState extends State<AddNewPost> {
   final TextEditingController _headingController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _categoryController = TextEditingController();
+  Post _post = Post();
 
   String heading = '';
   String description = '';
@@ -127,6 +129,7 @@ class _AddNewPostState extends State<AddNewPost> {
                     print(category);
                     print(heading);
                     print(description);
+                    _post.AddPost(_image, heading, description, category);
                     if (_formKey.currentState.validate()) {
                       /*print(heading);
                       print(description);*/
@@ -134,7 +137,7 @@ class _AddNewPostState extends State<AddNewPost> {
                         /*print(category);
                         print(heading);
                         print(description);*/
-
+                        _post.AddPost(_image, heading, description, category);
                       } catch (e) {
                         print(e.toString());
                       }
