@@ -15,6 +15,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
@@ -43,74 +45,78 @@ class _RegisterState extends State<Register> {
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text('Add Image'),
-                      onPressed: () {
-                        _pickImage(ImageSource.gallery);
-                      },
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      RaisedButton(
+                        child: Text('Add Image'),
+                        onPressed: () {
+                          _pickImage(ImageSource.gallery);
+                        },
+                      ),
+                      if (_image != null) ...[
+                        Image.file(
+                          _image,
+                          width: 100,
+                          height: 100,
+                        )
+                      ]
+                    ],
+                  ),
+                  TextFormField(
+                    controller: _usernameController,
+                    decoration: InputDecoration(
+                      labelText: "Username",
+                      hintText: "Username",
                     ),
-                    if (_image != null) ...[
-                      Image.file(
-                        _image,
-                        width: 100,
-                        height: 100,
-                      )
-                    ]
-                  ],
-                ),
-                TextField(
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                    labelText: "Username",
-                    hintText: "Username",
+                    validator: (val) => val.isEmpty  ? 'Enter user name' : null,
                   ),
-                ),
-                SizedBox(height: 10.0),
-                TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    hintText: "abc@xyz.com",
+                  SizedBox(height: 10.0),
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      hintText: "abc@xyz.com",
+                    ),
+                    validator: (val) => val.isEmpty ? 'Enter email' : null,
+
                   ),
-                ),
-                SizedBox(height: 10.0),
-                TextField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    labelText: "Password",
+                  SizedBox(height: 10.0),
+                  TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                    ),
+                    validator: (val) => val.length < 6 ? 'Enter more than 6 words' : null,
+                    obscureText: true,
                   ),
-                  obscureText: true,
-                ),
-                SizedBox(height: 10.0),
-                RaisedButton(
-                  child: Text(
-                    "Create a Account",
-                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                  SizedBox(height: 10.0),
+                  RaisedButton(
+                    child: Text(
+                      "Create a Account",
+                      style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    ),
+                    color: Colors.indigo[200],
+                    onPressed: () {
+                      if (_formKey.currentState.validate()){
+                        _auth.registerWithEmail(_emailController.text,_passwordController.text,_usernameController.text,_image,);
+                      }
+                    },
                   ),
-                  color: Colors.indigo[200],
-                  onPressed: () {
-                    _auth.registerWithEmail(
-                      _emailController.text,
-                      _passwordController.text,
-                      _usernameController.text,
-                      _image,
-                    );
-                  },
-                ),
-                SizedBox(height: 10.0),
-                FlatButton(
-                  child: Text("Have an account? Login"),
-                  onPressed: () {
-                    widget.toggle();
-                  },
-                ),
-              ],
+                  SizedBox(height: 10.0),
+                  FlatButton(
+                    child: Text("Have an account? Login"),
+                    onPressed: () {
+                      widget.toggle();
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

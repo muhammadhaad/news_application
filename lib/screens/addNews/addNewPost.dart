@@ -57,101 +57,101 @@ class _AddNewPostState extends State<AddNewPost> {
         child: Container(
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 80.0, horizontal: 30.0),
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 10.0,
-                ),
-                DropdownButton<String>(
-                  hint: Text("Select Category"),
-                  items: _categoryList.map((String dropDownStringItem) {
-                    return DropdownMenuItem<String>(
-                      value: dropDownStringItem,
-                      child: Text(dropDownStringItem),
-                    );
-                  }).toList(),
-                  onChanged: (val) {
-                    setState(() {
-                      this._currentValue = val;
-                    });
-                    category = val;
-                  },
-                  value: _currentValue,
-                ),
-                TextFormField(
-                  controller: _headingController,
-                  decoration: textInputDecoration.copyWith(hintText: 'Heading'),
-                  validator: (val) => val.isEmpty ? 'Enter Heading' : null,
-                  onChanged: (val) {
-                    heading = val;
-                  },
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                TextFormField(
-                    controller: _descriptionController,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  DropdownButton<String>(
+                    hint: Text("Select Category"),
+                    items: _categoryList.map((String dropDownStringItem) {
+                      return DropdownMenuItem<String>(
+                        value: dropDownStringItem,
+                        child: Text(dropDownStringItem),
+                      );
+                    }).toList(),
+                    onChanged: (val) {
+                      setState(() {
+                        this._currentValue = val;
+                      });
+                      category = val;
+                    },
+                    value: _currentValue,
+                  ),
+                  TextFormField(
+                    controller: _headingController,
+                    decoration: textInputDecoration.copyWith(hintText: 'Heading'),
+                    validator: (val) => val.isEmpty ? 'Enter Heading' : null,
+                    onChanged: (val) {
+                      heading = val;
+                    },
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  TextFormField(
+                      controller: _descriptionController,
 //                    textInputAction: TextInputAction.newline,
 //                    keyboardType: TextInputType.multiline,
-                    maxLines: 10,
-                    decoration:
-                        textInputDecoration.copyWith(hintText: 'Description'),
+                      maxLines: 10,
+                      decoration:
+                          textInputDecoration.copyWith(hintText: 'Description'),
 //                    obscureText: true,
-                    validator: (val) =>
-                        val.isEmpty ? 'Enter Description' : null,
-                    onChanged: (val) {
-                      description = val;
-                    }),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Row(
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text('Add Image'),
-                      onPressed: () {
-                        _pickImage(ImageSource.gallery);
-                      },
-                    ),
-                    Spacer(),
-                    if (_image != null) ...[
-                      Image.file(
-                        _image,
-                        width: 100,
-                        height: 100,
-                      )
-                    ]
-                  ],
-                ),
-                RaisedButton(
-                  child: Text('Post'),
-                  onPressed: () async {
-                    print(category);
-                    print(heading);
-                    print(description);
-                    _post.AddPost(_image, heading, description, category);
-                    if (_formKey.currentState.validate()) {
-                      /*print(heading);
-                      print(description);*/
-                      try {
-                        /*print(category);
-                        print(heading);
-                        print(description);*/
-                        _post.AddPost(_image, heading, description, category);
-                      } catch (e) {
-                        print(e.toString());
+                      validator: (val) => val.length < 20 ? 'Enter more than 20 words' : null,
+                      onChanged: (val) {
+                        description = val;
+                      }),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      RaisedButton(
+                        child: Text('Add Image'),
+                        onPressed: () {
+                          _pickImage(ImageSource.gallery);
+                        },
+                      ),
+                      Spacer(),
+                      if (_image != null) ...[
+                        Image.file(
+                          _image,
+                          width: 100,
+                          height: 100,
+                        )
+                      ]
+                    ],
+                  ),
+                  RaisedButton(
+                    child: Text('Post'),
+                    onPressed: () async {
+                      print(category);
+                      print(heading);
+                      print(description);
+
+                      if (_formKey.currentState.validate()) {
+                        try {
+                          print(category);
+                          print(heading);
+                          print(description);
+                          _post.AddPost(_image, heading, description, category);
+                        } catch (e) {
+                          print(e.toString());
+                        }
+                        showToast("new post added");
+                        _headingController.clear();
+                        _descriptionController.clear();
+                        _categoryController.clear();
+                        setState(() {
+                          this._currentValue = null;
+                        });
                       }
-                      showToast("new post added");
-                      _headingController.clear();
-                      _descriptionController.clear();
-                      _categoryController.clear();
-                      setState(() {
-                        this._currentValue = null;
-                      });
-                    }
-                  },
-                ),
-              ],
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:news_application/model/auth/user.dart';
-import 'file:///D:/Development/Mobile_Application/Projects/news_application/lib/model/user/user_info.dart';
+import 'package:news_application/model/user/user_info.dart';
+//import 'file:///D:/Development/Mobile_Application/Projects/news_application/lib/model/user/user_info.dart';
 import 'package:provider/provider.dart';
 
 class DrawerClass extends StatefulWidget {

@@ -24,5 +24,4 @@ class NewsGenerator {
         .snapshots()
         .map(_articleList);
   }
-
 }

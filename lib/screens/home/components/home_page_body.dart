@@ -17,7 +17,7 @@ class _HomePageBodyState extends State<HomePageBody> {
       child: TabBarView(children: <Widget>[
         TabBody("Explore"),
         TabBody("Entertainment"),
-        TabBody("Sports"),
+        TabBody("Sport"),
         TabBody("Technology"),
         TabBody("Politics"),
       ]),

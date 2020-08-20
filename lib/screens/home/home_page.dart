@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_application/model/auth/user_auth.dart';
-import 'file:///D:/Development/Mobile_Application/Projects/news_application/lib/model/user/user_info.dart';
+//import 'file:///D:/Development/Mobile_Application/Projects/news_application/lib/model/user/user_info.dart';
 import 'package:news_application/model/news/news_cat.dart';
 import 'package:news_application/model/news/news_generator.dart';
+import 'package:news_application/model/user/user_info.dart';
 import 'package:news_application/screens/addNews/addNewPost.dart';
 
 import 'components/drawer.dart';

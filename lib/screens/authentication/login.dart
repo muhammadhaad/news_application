@@ -11,6 +11,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final UserAuthentication _auth = UserAuthentication();
@@ -48,46 +50,56 @@ class _LoginState extends State<Login> {
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    hintText: "abc@xyz.com",
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      hintText: "abc@xyz.com",
+                    ),
+                    validator: (val) =>
+                    val.isEmpty ? 'Enter email' : null,
                   ),
-                ),
-                SizedBox(height: 10.0),
-                TextField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    labelText: "Password",
+                  SizedBox(height: 10.0),
+                  TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                    ),
+                    validator: (val) =>
+                    val.length < 6 ? 'Enter more than 6 words' : null,
+
+                    obscureText: true,
                   ),
-                  obscureText: true,
-                ),
-                SizedBox(height: 10.0),
-                RaisedButton(
-                  child: Text(
-                    "Login",
-                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                  SizedBox(height: 10.0),
+                  RaisedButton(
+                    child: Text(
+                      "Login",
+                      style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    ),
+                    color: Colors.indigo[200],
+                    //todo have to put some styling
+                    onPressed: () {
+                      if (_formKey.currentState.validate()){
+                        _auth.loginWithEmailAndPassword(_emailController.text, _passwordController.text);
+                      }
+
+                    },
                   ),
-                  color: Colors.indigo[200],
-                  //todo have to put some styling
-                  onPressed: () {
-                    _auth.loginWithEmailAndPassword(
-                        _emailController.text, _passwordController.text);
-                  },
-                ),
-                SizedBox(height: 10.0),
-                FlatButton(
-                  child: Text("Need an account? Register"),
-                  onPressed: () {
-                    widget.toggle();
-                  },
-                ),
-              ],
+                  SizedBox(height: 10.0),
+                  FlatButton(
+                    child: Text("Need an account? Register"),
+                    onPressed: () {
+                      widget.toggle();
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
