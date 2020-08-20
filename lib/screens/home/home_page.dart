@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_application/model/auth/user_auth.dart';
 import 'file:///D:/Development/Mobile_Application/Projects/news_application/lib/model/user/user_info.dart';
 import 'package:news_application/model/news/news_cat.dart';
+import 'package:news_application/model/news/news_generator.dart';
 import 'package:news_application/screens/addNews/addNewPost.dart';
 
 import 'components/drawer.dart';
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final UserAuthentication _auth = UserAuthentication();
   UserData user = new UserData();
+  NewsGenerator _newsGenerator = new NewsGenerator();
 
   @override
   Widget build(BuildContext context) {
