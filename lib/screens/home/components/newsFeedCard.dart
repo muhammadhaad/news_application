@@ -1,36 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:news_application/model/news/news_generator.dart';
 import 'package:news_application/model/news/news_model.dart';
 
-class NewsFeedCard extends StatefulWidget {
-  NewsFeedCard(AsyncSnapshot<List<NewsData>> snapshot, int index) {
-    this._snapshot = snapshot;
-    this._index = index;
-  }
+class NewsFeedCard extends StatelessWidget {
+  final NewsData newsData;
 
-  AsyncSnapshot<List<NewsData>> _snapshot;
-  int _index;
-
-  @override
-  _NewsFeedCardState createState() => _NewsFeedCardState(_snapshot, _index);
-}
-
-class _NewsFeedCardState extends State<NewsFeedCard> {
-  _NewsFeedCardState(AsyncSnapshot<List<NewsData>> snapshot, int index) {
-    this.snapshot = snapshot;
-    this.index = index;
-  }
-
-  AsyncSnapshot<List<NewsData>> snapshot;
-  int index;
-
-  final NewsGenerator _newsGenerator = NewsGenerator();
-
-  @override
-  void dispose() {
-    super.dispose();
-    _newsGenerator.dispose();
-  }
+  NewsFeedCard({this.newsData});
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +31,7 @@ class _NewsFeedCardState extends State<NewsFeedCard> {
                     ),
                     image: DecorationImage(
                       //todo have to code image logic now hardcoding to test card layout
-                      image: AssetImage("assets/images/news_card_template.jpg"),
-                      /*image: NetworkImage(snapshot.data[index].imageUrl),*/
+                      image: NetworkImage(newsData.imageUrl),
                       /*image:
                                     (NetworkImage(snapshot.data[index].imageUrl)),*/
                       fit: BoxFit.cover,
@@ -67,7 +40,7 @@ class _NewsFeedCardState extends State<NewsFeedCard> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "${snapshot.data[index].heading}",
+                  "${newsData.heading}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
@@ -78,7 +51,7 @@ class _NewsFeedCardState extends State<NewsFeedCard> {
                 padding: const EdgeInsets.only(
                     left: 8.0, right: 8.0, bottom: 8.0, top: 0.0),
                 child: Text(
-                  "${snapshot.data[index].description}",
+                  "${newsData.description}",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontSize: 15.0, color: Colors.grey),
@@ -95,25 +68,25 @@ class _NewsFeedCardState extends State<NewsFeedCard> {
                     ),
                     Text(
                       //todo have to set data format
-                      "  ${snapshot.data[index].date}",
+                      "  ${newsData.date}",
                       /* DateFormat.yMMMMd().format(snapshot.data[index].date.toDate()),*/
                       style: TextStyle(fontSize: 12.0),
                     ),
                     Spacer(),
                     Text(
-                      "${snapshot.data[index].likes}",
+                      "${newsData.likes}",
                       style: TextStyle(fontSize: 12.0),
                     ),
                     IconButton(
                       iconSize: 20,
                       icon: Icon(Icons.favorite),
-                      color: snapshot.data[index].like
+                      color: newsData.like
                           ? Colors.red
                           : Colors.black12,
                       onPressed: () {
-                        setState(() {
+                       /* setState(() {
                           //todo have to add
-                        });
+                        });*/
                       },
                       padding: EdgeInsets.all(10.0),
                     ),
