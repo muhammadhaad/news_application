@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 
 class User {
   final String uid;
@@ -22,8 +21,12 @@ class User {
     return userDataCollection.snapshots();
   }
 
+  Stream<DocumentSnapshot> get userData {
+    return userDataCollection.document(uid).snapshots();
+  }
+
   Future updateUserData(String name, String email, File image) async {
-    String filePath = 'userImage/$name${DateTime.now()}.jpg';
+    String filePath = 'userImage/$uid${DateTime.now()}.jpg';
 
     try {
       _uploadTask = await _store.ref().child(filePath).putFile(image);
