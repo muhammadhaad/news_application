@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:news_application/model/news/news_add_new.dart';
 import 'package:news_application/model/news/news_generator.dart';
 import 'package:news_application/model/news/news_model.dart';
+import 'package:news_application/screens/home/components/fullNewsPage.dart';
 
 class NewsFeedCard extends StatefulWidget {
   final NewsData newsData;
@@ -21,11 +22,11 @@ class _NewsFeedCardState extends State<NewsFeedCard> {
     Post post = new Post();
     return GestureDetector(
       onTap: () {
-        /*Navigator.push(
+        Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => FullNewsPage(snapshot.data[index])),
-        );*/
+              builder: (context) => FullNewsPage(widget.newsData.imageUrl,widget.newsData.heading,widget.newsData.description,widget.newsData.date,widget.newsData.like,widget.newsData.likes),
+        ));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -46,21 +47,6 @@ class _NewsFeedCardState extends State<NewsFeedCard> {
                     return Text("error");
                 },
               ),
-//              Container(
-//                height: 200.0,
-//                decoration: BoxDecoration(
-//                    borderRadius: BorderRadius.only(
-//                      topLeft: Radius.circular(10.0),
-//                      topRight: Radius.circular(10.0),
-//                    ),
-//                    image: FutureBuilder(
-//                        future: nd.getPostImageUrl(newsData.imageUrl),
-//                        builder: (context,snapshot){
-//                          return Image.network(snapshot)
-//                        },
-//                      ),
-//                     ),
-//              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -119,8 +105,7 @@ class _NewsFeedCardState extends State<NewsFeedCard> {
                           print(widget.newsData.likes);
                           print(widget.newsData.like);
 
-                          post.updateLikeDislike(widget.newsData.articleId,
-                              widget.newsData.like, widget.newsData.likes);
+                          //post.updateLikeDislike(widget.newsData.articleId, widget.newsData.like, widget.newsData.likes);
                         });
                       },
                       padding: EdgeInsets.all(10.0),

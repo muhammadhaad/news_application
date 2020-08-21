@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:news_application/model/auth/user.dart';
 import 'package:news_application/model/user/user_info.dart';
-//import 'file:///D:/Development/Mobile_Application/Projects/news_application/lib/model/user/user_info.dart';
 import 'package:provider/provider.dart';
+
+import '../../../model/auth/user_auth.dart';
 
 class DrawerClass extends StatefulWidget {
   @override
@@ -12,6 +12,8 @@ class DrawerClass extends StatefulWidget {
 //todo incomplete
 class _DrawerClassState extends State<DrawerClass> {
   UserData uData = new UserData();
+  final UserAuthentication _auth = UserAuthentication();
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,8 @@ class _DrawerClassState extends State<DrawerClass> {
                   accountName: Text(snapshot.data['name']),
                   accountEmail: Text(snapshot.data['email']),
                   currentAccountPicture: CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/drawer.jpeg') /*FutureBuilder(
+                    backgroundImage: AssetImage('assets/images/user.png')
+                    /*FutureBuilder(
                       future: uData.getImageUrl(snapshot.data['image']),
                       builder: (context,snapshot){
                         return Image.network(snapshot.data);
@@ -41,21 +44,19 @@ class _DrawerClassState extends State<DrawerClass> {
                       )),
                 ),
                 ListTile(
-                  leading: Icon(Icons.account_circle),
-                  title: Text("Account"),
+                  leading: Icon(Icons.person),
+                  title: Text("User Info"),
                 ),
                 ListTile(
                   leading: Icon(Icons.settings),
                   title: Text("Settings"),
                 ),
                 ListTile(
-                  leading: Icon(Icons.bookmark),
-                  title: Text("Liked"),
-                ),
-                ListTile(
                   leading: Icon(Icons.lock),
                   title: Text("Logout"),
-                  onTap: () async {},
+                  onTap: () async {
+                    await _auth.signOut();
+                  },
                 ),
               ],
             ),
