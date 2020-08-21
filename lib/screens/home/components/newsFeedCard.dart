@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_application/model/news/news_generator.dart';
 import 'package:news_application/model/news/news_model.dart';
 
 class NewsFeedCard extends StatelessWidget {
@@ -8,6 +10,7 @@ class NewsFeedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NewsGenerator nd = new NewsGenerator();
     return GestureDetector(
       onTap: () {
         /*Navigator.push(
@@ -22,21 +25,34 @@ class NewsFeedCard extends StatelessWidget {
           elevation: 5.0,
           child: Column(
             children: <Widget>[
-              Container(
-                height: 200.0,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                    ),
-                    image: DecorationImage(
-                      //todo have to code image logic now hardcoding to test card layout
-                      image: NetworkImage(newsData.imageUrl),
-                      /*image:
-                                    (NetworkImage(snapshot.data[index].imageUrl)),*/
-                      fit: BoxFit.cover,
-                    )),
+              FutureBuilder(
+                future: nd.getPostImageUrl(newsData.imageUrl),
+                builder: (context,snapshot){
+                  if (snapshot.hasData){
+                    return Image.network(snapshot.data);
+                  }
+                  if(snapshot.data== null){
+//                    print("data = " +snapshot.data);
+                    return Text("Loading");
+                  }
+                  else return Text("error");
+                },
               ),
+//              Container(
+//                height: 200.0,
+//                decoration: BoxDecoration(
+//                    borderRadius: BorderRadius.only(
+//                      topLeft: Radius.circular(10.0),
+//                      topRight: Radius.circular(10.0),
+//                    ),
+//                    image: FutureBuilder(
+//                        future: nd.getPostImageUrl(newsData.imageUrl),
+//                        builder: (context,snapshot){
+//                          return Image.network(snapshot)
+//                        },
+//                      ),
+//                     ),
+//              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(

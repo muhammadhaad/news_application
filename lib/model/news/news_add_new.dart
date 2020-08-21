@@ -23,7 +23,7 @@ class Post {
         'heading': heading,
         'description': description,
         'category': category,
-        'image': heading,
+        'image': filePath,
         'date': aid,
         'like' : false,
         'likes': 0,

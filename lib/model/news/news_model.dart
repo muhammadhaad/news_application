@@ -1,3 +1,5 @@
+import 'package:firebase_storage/firebase_storage.dart';
+
 class NewsData {
   int articleId;
   String imageUrl;
@@ -18,4 +20,6 @@ class NewsData {
       this.category,
       this.likes,
       this.like});
+
+
 }

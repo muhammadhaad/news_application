@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:news_application/model/news/news_model.dart';
 
 class NewsGenerator {
@@ -23,5 +24,14 @@ class NewsGenerator {
     return data
         .snapshots()
         .map(_articleList);
+  }
+
+
+  Future<String> getPostImageUrl(String link) async {
+    print('sss' + link);
+    final ref = FirebaseStorage.instance.ref().child(link);
+    String url = await ref.getDownloadURL();
+    print('xxx' + url);
+    return url;
   }
 }
