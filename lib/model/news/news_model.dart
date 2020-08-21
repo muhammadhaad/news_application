@@ -1,7 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 
 class NewsData {
-  int articleId;
+  String articleId;
   String imageUrl;
   String heading;
   String description;
@@ -13,13 +13,12 @@ class NewsData {
   bool like;
 
   NewsData(
-      {this.imageUrl,
+      {this.articleId,
+      this.imageUrl,
       this.heading,
       this.description,
       this.date,
       this.category,
       this.likes,
       this.like});
-
-
 }

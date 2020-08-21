@@ -9,6 +9,7 @@ class NewsGenerator {
   List<NewsData> _articleList(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return NewsData(
+        articleId: doc.data['aid'] ?? 0,
         imageUrl: doc.data['image'] ?? '',
         category: doc.data['category'] ?? '',
         description: doc.data['description'] ?? 'Description',
@@ -21,17 +22,12 @@ class NewsGenerator {
   }
 
   Stream<List<NewsData>> get news {
-    return data
-        .snapshots()
-        .map(_articleList);
+    return data.snapshots().map(_articleList);
   }
 
-
   Future<String> getPostImageUrl(String link) async {
-    print('sss' + link);
     final ref = FirebaseStorage.instance.ref().child(link);
     String url = await ref.getDownloadURL();
-    print('xxx' + url);
     return url;
   }
 }

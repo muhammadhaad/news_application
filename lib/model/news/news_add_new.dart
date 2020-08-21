@@ -32,4 +32,19 @@ class Post {
       print(e.toString());
     }
   }
+
+  Future updateLikeDislike(String id, bool like, int likes) async{
+    print('abc' +id.toString());
+    try{
+      return await data.document(id.toString()).updateData({
+        'like' : like,
+        'likes': likes,
+      }).then((value) {
+        print("success");
+      });
+    }catch (e) {
+      print(e.toString());
+    }
+
+  }
 }
