@@ -2,15 +2,18 @@
 
 New Application
 
-## Getting Started
+## Setting up Android Studio and Flutter
 
-This project is a starting point for a Flutter application.
+To run the application you need to install(Internet Conection required):
 
-A few resources to get you started if this is your first Flutter project:
+- [Install Android Studio 4.0](https://developer.android.com/studio/install)
+- [Install Flutter1.22](https://flutter.dev/docs/get-started/install)
+- [Install Flutter and Dart Plugin](https://flutter.dev/docs/get-started/editor)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Getting the project ready
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Now unzip the project file and open it in android studio.For the first time android studio will take time to configure the environment.
+
+After that an android device is required, it will be connected by usb cable and also you have to turn on [USB DEBUGGING](https://docs.kony.com/konylibrary/visualizer/visualizer_user_guide/content/AndroidUSBDebugging_Windows10.htm).
+
+## Run The Project
